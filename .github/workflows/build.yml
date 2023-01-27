@@ -1,4 +1,6 @@
 name: Monthly build
+permissions:
+  contents: write
 on:
   workflow_dispatch:
   schedule:
