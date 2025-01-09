@@ -36,15 +36,15 @@ jobs:
       matrix:
         boards: [rock-pi-4b-plus]
         build_systems: [rbuild, armbian]
-        distros: [debian, ubuntu]
-        flavors: [kde, cli]
+        distros: [debian] #,ubuntu
+        flavors: [cli] #,kde
         exclude:
           - build_systems: debos
             distros: debian
             flavors: cli
-          - build_systems: debos
-            distros: ubuntu
-            flavors: kde
+          #- build_systems: debos
+          #  distros: ubuntu
+          #  flavors: kde
     steps:
       - name: Checkout
         uses: actions/checkout@v2
