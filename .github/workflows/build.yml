@@ -1,4 +1,4 @@
-7name: Monthly build
+name: Monthly build
 permissions:
   contents: write
 on:
