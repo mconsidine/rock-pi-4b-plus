@@ -36,8 +36,8 @@ jobs:
       matrix:
         boards: [rock-pi-4b-plus]
         build_systems: [rbuild, armbian]
-        distros: [debian] #,ubuntu
-        flavors: [cli] #,kde
+        distros: [debian,ubuntu]
+        flavors: [cli,kde]
         branches: [current]
         #exclude:
           #- build_systems: debos
@@ -69,12 +69,12 @@ jobs:
       #    flavor: ${{ matrix.flavors }}
       #    release-id: ${{ needs.prepare_release.outputs.release_id }}
       #    github-token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Upload rbuild image
-        uses: radxa-repo/rbuild@main
-        if: matrix.build_systems == 'rbuild'
-        with:
-          board: ${{ matrix.boards }}
-          distro: ${{ matrix.distros }}
-          flavor: ${{ matrix.flavors }}
-          release-id: ${{ needs.prepare_release.outputs.release_id }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+      #- name: Upload rbuild image
+      #  uses: radxa-repo/rbuild@main
+      #  if: matrix.build_systems == 'rbuild'
+      #  with:
+      #    board: ${{ matrix.boards }}
+      #    distro: ${{ matrix.distros }}
+      #    flavor: ${{ matrix.flavors }}
+      #    release-id: ${{ needs.prepare_release.outputs.release_id }}
+      #    github-token: ${{ secrets.GITHUB_TOKEN }}
