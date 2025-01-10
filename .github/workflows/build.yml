@@ -73,7 +73,7 @@ jobs:
         uses: radxa-repo/rbuild@main
         if: matrix.build_systems == 'rbuild'
         with:
-        branch: ${{ matrix.branches }}
+          branch: ${{ matrix.branches }}
           board: ${{ matrix.boards }}
           distro: ${{ matrix.distros }}
           flavor: ${{ matrix.flavors }}
