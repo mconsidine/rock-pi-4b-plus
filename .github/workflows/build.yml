@@ -1,4 +1,4 @@
-name: Monthly build
+7name: Monthly build
 permissions:
   contents: write
 on:
@@ -55,7 +55,8 @@ jobs:
           board: rockpi-4bplus
           distro: ${{ matrix.distros }}
           flavor: ${{ matrix.flavors }}
-          kernel_branch: edge
+          kernel_branch: current
+          branch: current
           release-id: ${{ needs.prepare_release.outputs.release_id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
       #- name: Upload debos-radxa image
