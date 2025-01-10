@@ -36,8 +36,8 @@ jobs:
       matrix:
         boards: [rock-pi-4b-plus]
         build_systems: [rbuild, armbian]
-        distros: [debian] #ubuntu
-        flavors: [cli,kde]
+        #distros: [debian] #ubuntu
+        flavors: [cli,debian]
         branches: [current]
         #exclude:
           #- build_systems: debos
@@ -54,7 +54,7 @@ jobs:
         if: matrix.build_systems == 'armbian'
         with:
           board: rockpi-4bplus
-          distro: ${{ matrix.distros }}
+          #distro: ${{ matrix.distros }}
           flavor: ${{ matrix.flavors }}
           #kernel_branch: ${{ matrix.branches }}
           branch: ${{ matrix.branches }}
