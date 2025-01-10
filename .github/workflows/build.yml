@@ -38,10 +38,11 @@ jobs:
         build_systems: [rbuild, armbian]
         distros: [debian] #,ubuntu
         flavors: [cli] #,kde
-        exclude:
-          - build_systems: debos
-            distros: debian
-            flavors: cli
+        branches: [current]
+        #exclude:
+          #- build_systems: debos
+          #  distros: debian
+          #  flavors: cli
           #- build_systems: debos
           #  distros: ubuntu
           #  flavors: kde
@@ -55,8 +56,8 @@ jobs:
           board: rockpi-4bplus
           distro: ${{ matrix.distros }}
           flavor: ${{ matrix.flavors }}
-          kernel_branch: current
-          branch: current
+          kernel_branch: ${{ matrix.branches }}
+          branch: ${{ matrix.branches }}
           release-id: ${{ needs.prepare_release.outputs.release_id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
       #- name: Upload debos-radxa image
