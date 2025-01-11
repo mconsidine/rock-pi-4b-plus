@@ -37,7 +37,7 @@ jobs:
         boards: [rock-pi-4b-plus]
         build_systems: [rbuild, armbian]
         #distros: [debian] #ubuntu
-        flavors: [cli,debian]
+        flavors: [cli,debian,ubuntu]
         branches: [current]
         #exclude:
           #- build_systems: debos
