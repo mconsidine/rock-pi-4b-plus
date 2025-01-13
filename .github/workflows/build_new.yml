@@ -28,7 +28,7 @@ jobs:
         ls -lha ./build/patch
         ls -lha ./build/patch/kernel/rk35xx-legacy
         ls -lha ./build/patch/kernel/rk35xx-vendor-6.1
-        cp -a fix-rtl8211f.patch ./build/patch/kernel/rockchip64-edge/fix-rtl8211f.patch
+        cp -a fix-rtl8211f.patch ./build/patch/kernel/rk35xx-legacy/fix-rtl8211f.patch
         cp -a rockpi-4b-plus.csc ./build/config/boards/rockpi-4b-plus.csc
         cd build
         ./compile.sh EXPERT=yes \
