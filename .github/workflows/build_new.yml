@@ -21,7 +21,7 @@ jobs:
     - name: Bulid Armbian
       run: |
         git clone https://github.com/armbian/build --depth 1
-        wget https://raw.githubusercontent.com/ActiveIce/rockpi-4b-plus/master/fix-rtl8211f.patch
+        #wget https://raw.githubusercontent.com/ActiveIce/rockpi-4b-plus/master/fix-rtl8211f.patch
         wget https://raw.githubusercontent.com/ActiveIce/rockpi-4b-plus/master/rockpi-4b-plus.csc
         #ls -lha
         #ls -lha ./build
@@ -33,11 +33,10 @@ jobs:
         cd build
         ./compile.sh EXPERT=yes \
           BOARD=rockpi-4b-plus \
-          BRANCH=legacy \
+          BRANCH=edge \
           RELEASE=bookworm \
           BUILD_MINIMAL=yes \
           BUILD_DESKTOP=no \
-          #KERNEL_CONFIGURE=yes \
           INSTALL_HEADERS=yes \
           COMPRESS_OUTPUTIMAGE=sha,gpg,img
         
