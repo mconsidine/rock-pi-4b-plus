@@ -1,0 +1,44 @@
+#https://github.com/ActiveIce/rockpi-4b-plus/blob/master/.github/workflows/main.yml
+name: auto build engine
+
+on: 
+  #release:
+  #  types: [published]
+  #schedule:
+  #  - cron: "0 16 * * *"
+  #push:
+  #  branches: 
+  #    - master
+  #watch:
+  #  types: [started]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    
+    steps:
+    - name: Bulid Armbian
+      run: |
+        git clone https://github.com/armbian/build --depth 1
+        wget https://raw.githubusercontent.com/ActiveIce/rockpi-4b-plus/master/fix-rtl8211f.patch
+        wget https://raw.githubusercontent.com/ActiveIce/rockpi-4b-plus/master/rockpi-4b-plus.csc
+        cp fix-rtl8211f.patch build/patch/kernel/rockchip64-edge/
+        cp rockpi-4b-plus.csc build/config/boards/
+        cd build
+        ./compile.sh EXPERT=yes \
+          BOARD=rockpi-4b-plus \
+          BRANCH=stable \
+          RELEASE=bookworm \
+          BUILD_MINIMAL=yes \
+          BUILD_DESKTOP=no \
+          KERNEL_CONFIGURE=yes \
+          INSTALL_HEADERS=yes \
+          COMPRESS_OUTPUTIMAGE=xz \
+          IMAGE_XZ_COMPRESSION_RATIO=6
+        
+    - name: Upload Armbian
+      uses: actions/upload-artifact@main
+      with:
+        name: image
+        path: build/output/images/*.img
