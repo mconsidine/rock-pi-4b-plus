@@ -2,15 +2,6 @@
 name: auto build engine
 
 on: 
-  #release:
-  #  types: [published]
-  #schedule:
-  #  - cron: "0 16 * * *"
-  #push:
-  #  branches: 
-  #    - master
-  #watch:
-  #  types: [started]
   workflow_dispatch:
 
 jobs:
@@ -21,8 +12,6 @@ jobs:
     - name: Build Armbian
       run: |
         git clone https://github.com/armbian/build --depth 1
-        wget https://raw.githubusercontent.com/ActiveIce/rockpi-4b-plus/master/rockpi-4b-plus.csc
-        cp rockpi-4b-plus.csc ./build/config/boards/
         cd build
         ./compile.sh BOARD=rockpi-4b-plus \
           BRANCH=edge \
