@@ -6,14 +6,17 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-24.04
-    
+    runs-on: ubuntu-latest
+
     steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4    
+      
     - name: Build Armbian
       run: |
-        git clone https://github.com/armbian/build --depth 1
+        git clone --depth 1 https://github.com/armbian/build.git
         cd build
-        ./compile.sh BOARD=rockpi-4b-plus \
+        ./compile.sh BOARD=rockpi-4bplus \
           BRANCH=edge \
           RELEASE=bookworm \
           BUILD_MINIMAL=no \
