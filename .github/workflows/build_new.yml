@@ -35,8 +35,8 @@ jobs:
           BOARD=rockpi-4b-plus \
           BRANCH=edge \
           RELEASE=bookworm \
-          BUILD_MINIMAL=yes \
-          BUILD_DESKTOP=no \
+          BUILD_MINIMAL=no \
+          BUILD_DESKTOP=yes \
           INSTALL_HEADERS=yes \
           COMPRESS_OUTPUTIMAGE=sha,gpg,img
         
