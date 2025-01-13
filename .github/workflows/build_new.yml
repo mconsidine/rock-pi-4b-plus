@@ -20,6 +20,10 @@ jobs:
           BUILD_DESKTOP=yes \
           INSTALL_HEADERS=yes \
           COMPRESS_OUTPUTIMAGE=sha,gpg,img
+        ls -lha ./etc
+        ls -lha ./boot
+        ls -lha ./boot/dts
+        ls -lha ./boot/dts/rockchip
         
     - name: Upload Armbian
       uses: actions/upload-artifact@main
