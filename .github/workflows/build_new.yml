@@ -23,24 +23,23 @@ jobs:
         git clone https://github.com/armbian/build --depth 1
         wget https://raw.githubusercontent.com/ActiveIce/rockpi-4b-plus/master/fix-rtl8211f.patch
         wget https://raw.githubusercontent.com/ActiveIce/rockpi-4b-plus/master/rockpi-4b-plus.csc
-        ls -lha
-        ls -lha ./build
-        ls -lha ./build/patch
-        ls -lha ./build/patch/kernel/rk35xx-legacy
-        ls -lha ./build/patch/kernel/rk35xx-vendor-6.1
-        cp -a fix-rtl8211f.patch ./build/patch/kernel/rk35xx-legacy/fix-rtl8211f.patch
+        #ls -lha
+        #ls -lha ./build
+        #ls -lha ./build/patch
+        #ls -lha ./build/patch/kernel/rk35xx-legacy
+        #ls -lha ./build/patch/kernel/rk35xx-vendor-6.1
+        #cp -a fix-rtl8211f.patch ./build/patch/kernel/rk35xx-legacy/fix-rtl8211f.patch
         cp -a rockpi-4b-plus.csc ./build/config/boards/rockpi-4b-plus.csc
         cd build
         ./compile.sh EXPERT=yes \
           BOARD=rockpi-4b-plus \
-          BRANCH=edge \
+          BRANCH=legacy \
           RELEASE=bookworm \
           BUILD_MINIMAL=yes \
           BUILD_DESKTOP=no \
-          KERNEL_CONFIGURE=yes \
+          #KERNEL_CONFIGURE=yes \
           INSTALL_HEADERS=yes \
-          COMPRESS_OUTPUTIMAGE=xz \
-          IMAGE_XZ_COMPRESSION_RATIO=6
+          COMPRESS_OUTPUTIMAGE=sha,gpg,img
         
     - name: Upload Armbian
       uses: actions/upload-artifact@main
