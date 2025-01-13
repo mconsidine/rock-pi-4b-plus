@@ -23,9 +23,12 @@ jobs:
         git clone https://github.com/armbian/build --depth 1
         wget https://raw.githubusercontent.com/ActiveIce/rockpi-4b-plus/master/fix-rtl8211f.patch
         wget https://raw.githubusercontent.com/ActiveIce/rockpi-4b-plus/master/rockpi-4b-plus.csc
+        ls -lha
+        ls -lha ./build
+        ls -lha ./build/patch
         ls -lha ./build/patch/kernel
-        cp -a fix-rtl8211f.patch build/patch/kernel/rockchip64-edge/fix-rtl8211f.patch
-        cp -a rockpi-4b-plus.csc build/config/boards/rockpi-4b-plus.csc
+        cp -a fix-rtl8211f.patch ./build/patch/kernel/rockchip64-edge/fix-rtl8211f.patch
+        cp -a rockpi-4b-plus.csc ./build/config/boards/rockpi-4b-plus.csc
         cd build
         ./compile.sh EXPERT=yes \
           BOARD=rockpi-4b-plus \
