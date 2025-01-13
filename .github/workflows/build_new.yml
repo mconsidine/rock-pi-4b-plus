@@ -24,8 +24,8 @@ jobs:
         wget https://raw.githubusercontent.com/ActiveIce/rockpi-4b-plus/master/fix-rtl8211f.patch
         wget https://raw.githubusercontent.com/ActiveIce/rockpi-4b-plus/master/rockpi-4b-plus.csc
         ls -lha ./build/patch/kernel
-        cp -a fix-rtl8211f.patch build/patch/kernel/rockchip64-edge/
-        cp -a rockpi-4b-plus.csc build/config/boards/
+        cp -a fix-rtl8211f.patch build/patch/kernel/rockchip64-edge/fix-rtl8211f.patch
+        cp -a rockpi-4b-plus.csc build/config/boards/rockpi-4b-plus.csc
         cd build
         ./compile.sh EXPERT=yes \
           BOARD=rockpi-4b-plus \
