@@ -40,7 +40,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Upload Armbian image
-        uses: radxa/armbian-compile-action@main
+        uses: mconsidine/armbian-compile-action@main
         if: matrix.build_systems == 'armbian'
         with:
           suite: bookworm
