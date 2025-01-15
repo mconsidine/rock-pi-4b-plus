@@ -14,7 +14,7 @@ jobs:
         with:
           tag_name: b${{ github.run_number }}
           body_path: README.md
-          token: ${{ secrets.GITHUB_TOKEN }}
+ #         token: ${{ secrets.GITHUB_TOKEN }}
           target_commitish: main
           draft: false
           prerelease: true
@@ -27,15 +27,15 @@ jobs:
       matrix:
         boards: [rock-pi-4b-plus]
         build_systems: [armbian]
-        distros: [debian, ubuntu]
-        flavors: [kde, cli]
-        exclude:
-          - build_systems: debos
-            distros: debian
-            flavors: cli
-          - build_systems: debos
-            distros: ubuntu
-            flavors: kde
+        distros: [debian]
+        flavors: [cli]
+   #     exclude:
+   #       - build_systems: debos
+   #         distros: debian
+   #         flavors: cli
+   #       - build_systems: debos
+   #         distros: ubuntu
+   #         flavors: kde
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -46,7 +46,7 @@ jobs:
           board: rockpi-4bplus
           distro: ${{ matrix.distros }}
           flavor: ${{ matrix.flavors }}
-          kernel_branch: edge
+          kernel_branch: [legacy, current, edge]
           release-id: ${{ needs.prepare_release.outputs.release_id }}
       #    github-token: ${{ secrets.GITHUB_TOKEN }}
       #- name: Upload debos-radxa image
