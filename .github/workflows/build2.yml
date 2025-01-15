@@ -44,7 +44,7 @@ jobs:
         if: matrix.build_systems == 'armbian'
         with:
           suite: bookworm
-          board: rockpi-4bplus
+          board: rockpi-4b-plus
           distro: ${{ matrix.distros }}
           flavor: ${{ matrix.flavors }}
           kernel_branch: edge
