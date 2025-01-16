@@ -99,10 +99,10 @@ runs:
       with:
         release_id: ${{ inputs.release-id }}
         file: ./build/output/images/*
-    - name: Rollback release
-      if: failure() && inputs.release-id != '' && inputs.github-token != ''
-      uses: author/action-rollback@stable
-      env:
-        GITHUB_TOKEN: ${{ inputs.github-token }}
-      with:
-        release_id: ${{ inputs.release-id }}
+    #- name: Rollback release
+    #  if: failure() && inputs.release-id != '' && inputs.github-token != ''
+    #  uses: author/action-rollback@stable
+    #  env:
+    #    GITHUB_TOKEN: ${{ inputs.github-token }}
+    #  with:
+    #    release_id: ${{ inputs.release-id }}
