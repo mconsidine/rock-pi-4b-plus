@@ -63,7 +63,7 @@ runs:
       shell: bash
       run: |
         cd ./build
-        ./compile.sh docker-shell
+        COMPOSE_INTERACTIVE_NO_CLI=1 ./compile.sh docker-shell
           touch .ignore_changes
           mkdir -p arch/arm64/boot/dts/rockchip/
           sed -i "s|() {|() {\ndf -h \&\& du -sh \${SRC}/* \&\& du -sh \${SRC}/cache/* \&\& rm -rf \${SRC}/cache/sources/aptcache/* \${SRC}/cache/sources/linux-kernel-worktree/* \${SRC}/cache/sources/rootfs/*\n|g" extensions/image-output-abl.sh
