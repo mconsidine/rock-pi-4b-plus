@@ -29,7 +29,7 @@ jobs:
         build_systems: [armbian]
         distros: [debian]
         flavors: [cli]
-        kernels: [current,edge]
+        kernels: [stable,current]
    #     exclude:
    #       - build_systems: debos
    #         distros: debian
@@ -49,7 +49,7 @@ jobs:
           flavor: ${{ matrix.flavors }}
           kernel_branch: ${{ matrix.kernels }}
           release-id: ${{ needs.prepare_release.outputs.release_id }}
-      #    github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
       #- name: Upload debos-radxa image
       #  uses: radxa/debos-build-action@main
       #  if: matrix.build_systems == 'debos'
