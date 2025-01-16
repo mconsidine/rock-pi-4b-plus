@@ -41,7 +41,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Upload Armbian image
-        uses: armbian-compile-action@main
+        uses: rock-pi-4b-plus@main
         if: matrix.build_systems == 'armbian'
         with:
           board: rockpi-4bplus
