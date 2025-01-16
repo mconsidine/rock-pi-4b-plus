@@ -24,7 +24,7 @@ runs:
         remove-codeql: 'true'
         remove-docker-images: 'true'
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         repository: armbian/build
         ref: main
@@ -34,7 +34,7 @@ runs:
       run: |
         if [ ${{ inputs.flavor }} == "debian" ]
         then
-          echo "release=sid" >> $GITHUB_ENV
+          echo "release=bookworm" >> $GITHUB_ENV
           echo "build-minimal=no" >> $GITHUB_ENV
           echo "build-desktop=yes" >> $GITHUB_ENV
           echo "desktop-environment=gnome" >> $GITHUB_ENV
@@ -51,7 +51,7 @@ runs:
           echo "desktop_appgroups_selected=\"browsers chat desktop_tools editors email internet multimedia office programming remote_desktop\"" >> $GITHUB_ENV
         elif [ ${{ inputs.flavor }} == "cli" ]
         then
-          echo "release=noble" >> $GITHUB_ENV
+          echo "release=bookworm" >> $GITHUB_ENV
           echo "build-minimal=no" >> $GITHUB_ENV
           echo "build-desktop=no" >> $GITHUB_ENV
           echo "desktop-environment=gnome" >> $GITHUB_ENV
