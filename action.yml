@@ -1,0 +1,108 @@
+name: 'Armbian/build'
+description: 'Armbian Linux build framework'
+inputs:
+  board:
+    required: true
+  distro:
+    required: true
+  suite:
+    required: false
+  flavor:
+    required: true
+  kernel_branch:
+    required: false
+    default: 'current'
+  artifacts:
+    required: false
+    default: 'false'
+  release-id:
+    required: false
+  github-token:
+    required: false
+runs:
+  using: "composite"
+  steps:
+    - name: Get more space
+      uses: easimon/maximize-build-space@master
+      with:
+        root-reserve-mb: 30720
+        swap-size-mb: 1024
+        remove-dotnet: true
+        remove-android: true
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        repository: armbian/build
+        path: build
+    - name: Set env
+      shell: bash
+      run: |
+        case ${{ inputs.distro }} in
+          debian)
+            echo "release=bookworm" >> $GITHUB_ENV
+            ;;
+          ubuntu)
+            echo "release=jammy" >> $GITHUB_ENV
+            ;;
+          *)
+            echo "Unknown distro!" >&2
+            exit 1
+            ;;
+        esac
+        if [ ${{ inputs.flavor }} == "cli" ]
+        then
+          echo "build-minimal=yes" >> $GITHUB_ENV
+          echo "build-desktop=no" >> $GITHUB_ENV
+          echo "desktop-environment=" >> $GITHUB_ENV
+          echo "desktop-environment-config-name=" >> $GITHUB_ENV
+        else
+          echo "build-minimal=no" >> $GITHUB_ENV
+          echo "build-desktop=yes" >> $GITHUB_ENV
+          case ${{ inputs.flavor }} in
+            kde)
+              echo "desktop-environment=kde-plasma" >> $GITHUB_ENV
+              ;;
+            *)
+              echo "desktop-environment=${{ inputs.flavor }}" >> $GITHUB_ENV
+              ;;
+          esac
+          echo "desktop-environment-config-name=config_base" >> $GITHUB_ENV
+        fi
+    - name: Build
+      shell: bash
+      run: |
+        cd ./build
+        ./compile.sh \
+        PREFER_DOCKER=yes \
+        BOARD=${{ inputs.board }} \
+        BRANCH=${{ inputs.kernel_branch }} \
+        RELEASE=${{ env.release }} \
+        BUILD_MINIMAL=${{ env.build-minimal }} \
+        BUILD_DESKTOP=${{ env.build-desktop }} \
+        KERNEL_CONFIGURE=no \
+        DESKTOP_ENVIRONMENT=${{ env.desktop-environment }} \
+        DESKTOP_ENVIRONMENT_CONFIG_NAME=${{ env.desktop-environment-config-name }} \
+        DESKTOP_APPGROUPS_SELECTED=none \
+        EXPERT=yes \
+        COMPRESS_OUTPUTIMAGE=sha,gpg,xz
+    - name: Upload artifacts
+      if: inputs.artifacts == 'true'
+      uses: actions/upload-artifact@v3
+      with:
+        name: ${{ inputs.board }}_${{ inputs.distro }}_${{ inputs.flavor }}
+        path: ./build/output/images/*
+    - name: Upload
+      if: inputs.release-id != '' && inputs.github-token != ''
+      uses: xresloader/upload-to-github-release@v1
+      env:
+          GITHUB_TOKEN: ${{ inputs.github-token }}
+      with:
+        release_id: ${{ inputs.release-id }}
+        file: ./build/output/images/*
+    - name: Rollback release
+      if: failure() && inputs.release-id != '' && inputs.github-token != ''
+      uses: author/action-rollback@stable
+      env:
+        GITHUB_TOKEN: ${{ inputs.github-token }}
+      with:
+        release_id: ${{ inputs.release-id }}
